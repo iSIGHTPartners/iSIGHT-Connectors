@@ -12,9 +12,9 @@ time_stamp = email.Utils.formatdate(localtime=True)
 
 search_time = datetime.datetime.now() - datetime.timedelta(days = 14)
 
-search_epoch = int(time.mktime(search_time.timetuple()))
+search_time_in_epoch = int(time.mktime(search_time.timetuple()))
 
-search_query = '/view/targets?since=' + str(search_epoch) + '&threatType=malwareFamily&value=dridex'
+search_query = '/view/targets?since=' + str(search_time_in_epoch) + '&threatType=malwareFamily&value=dridex'
 
 accept_version = '2.1'
 accept_header = 'application/json'
