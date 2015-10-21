@@ -2,15 +2,22 @@ import hashlib
 import hmac
 import httplib
 import email
+import time
+import datetime
 
 public_key = ‘YOUR_PUBLIC_KEY’
 private_key = ‘YOUR_PRIVATE_KEY’
 
-search_query = '/view/iocs'
-
-accept_version = '2.0'
-accept_header = 'application/json'
 time_stamp = email.Utils.formatdate(localtime=True)
+
+search_time = datetime.datetime.now() - datetime.timedelta(days = 14)
+
+search_epoch = int(time.mktime(search_time.timetuple()))
+
+search_query = '/view/targets?since=' + str(search_epoch) + '&threatType=malwareFamily&value=dridex'
+
+accept_version = '2.1'
+accept_header = 'application/json'
 
 hash_data = search_query + accept_version + accept_header + time_stamp
 hashed = hmac.new(private_key, hash_data, hashlib.sha256)
